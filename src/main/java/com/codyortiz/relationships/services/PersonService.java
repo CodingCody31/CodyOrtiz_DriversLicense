@@ -33,10 +33,6 @@ public class PersonService {
 		}
 	}
 	
-	public Person addPerson(Person p) {
-		return personRepository.save(p);
-	}
-	
 	public void deletePerson(Long id) {
 		personRepository.deleteById(id);
 	}

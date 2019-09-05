@@ -2,11 +2,15 @@ package com.codyortiz.relationships.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.codyortiz.relationships.models.License;
 import com.codyortiz.relationships.models.Person;
@@ -28,9 +32,19 @@ public class RelationshipsController {
 	public String newPerson(@ModelAttribute("person") Person person) {
 		return "Home.jsp";
 	}
+	
+	@RequestMapping(value="/persons/new", method=RequestMethod.POST)
+	public String createPerson(@Valid @ModelAttribute("person") Person person, BindingResult result) {
+		if(result.hasErrors()) {
+			return "Home.jsp";
+		} else {
+			personService.createPerson(person);
+			return "redirect:/licenses/new";
+		}
+	}
 
-	@RequestMapping("/licenses/new")
-	public String newLicense(Model model,@ModelAttribute("license")License license){
+	@RequestMapping("/licenses/new/{id}")
+	public String newLicense(@PathVariable("id") Long id, Model model,@ModelAttribute("license")License license){
 		List<Person> persons = personService.allPersons();
 		model.addAttribute("persons", persons);
 		return "License.jsp";

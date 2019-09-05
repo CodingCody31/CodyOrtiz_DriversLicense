@@ -11,7 +11,14 @@
 <body>
 	<h1>New License</h1>
 	<div>
-	<form:form action="/addLicense" method = "post" modelAttribute="license">
+	<c:forEach items="${person}" var="person">
+		<select>
+		<option><c:out value="${person.firstName}"/></option>
+		</select>
+	</c:forEach>
+	</div>
+	<div>
+	<form:form action="/licenses/new/${person.id})" method ="post" modelAttribute="license">
 		<label for="state">State</label>
 		<form:input path="state" placeholder="State"/>
 		<label for="expirationDate">Expiration Date</label>

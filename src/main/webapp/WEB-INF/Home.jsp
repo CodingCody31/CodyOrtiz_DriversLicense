@@ -12,7 +12,7 @@
 <body>
 	<h1>New Person</h1>
 	<div>
-	<form:form action="/addPerson" method = "post" modelAttribute="person">
+	<form:form action="/persons/new" method = "post" modelAttribute="person">
 		<label for="firstName">First Name</label>
 		<form:input path="firstName" placeholder="First Name"/>
 		<label for="lastName">Last Name</label>

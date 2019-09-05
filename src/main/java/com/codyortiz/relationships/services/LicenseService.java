@@ -34,10 +34,6 @@ public class LicenseService {
 		}
 	}
 	
-	public License addLicense(License l) {
-		return licenseRepository.save(l);
-	}
-	
 	public void deleteLicense(Long id) {
 		licenseRepository.deleteById(id);
 	}
