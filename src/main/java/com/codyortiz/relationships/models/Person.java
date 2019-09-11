@@ -103,6 +103,9 @@ public class Person {
 	        this.updatedAt = Calendar.getInstance();
 		    }
 	    
+	    public String toString() {
+	    	return this.firstName;
+	    }
 	    
 
 }

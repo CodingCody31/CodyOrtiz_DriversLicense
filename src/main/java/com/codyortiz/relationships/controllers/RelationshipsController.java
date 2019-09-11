@@ -1,5 +1,6 @@
 package com.codyortiz.relationships.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -39,15 +40,26 @@ public class RelationshipsController {
 			return "Home.jsp";
 		} else {
 			personService.createPerson(person);
-			return "redirect:/licenses/new";
+			return "redirect:/licenses/new/";
 		}
 	}
 
-	@RequestMapping("/licenses/new/{id}")
-	public String newLicense(@PathVariable("id") Long id, Model model,@ModelAttribute("license")License license){
+	@RequestMapping("/licenses/new/")
+	public String newLicense(Model model,@ModelAttribute("license") License license){
 		List<Person> persons = personService.allPersons();
+		//System.out.println(Arrays.toString(persons.toArray()));
 		model.addAttribute("persons", persons);
 		return "License.jsp";
+	}
+	
+	@RequestMapping(value="/licenses/new/", method=RequestMethod.POST)
+	public String createLicense(@Valid @ModelAttribute("license") License license, BindingResult result) {
+		if(result.hasErrors()) {
+			return "License.jsp";
+		} else {
+			licenseService.createLicense(license);
+			return "redirect:/persons/new";
+		}
 	}
 	
 	@RequestMapping("/persons/{id}")
